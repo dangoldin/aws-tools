@@ -15,7 +15,7 @@ def get_ec2_instances(conn):
     for reservation in reservations:
         instance = reservation.instances[0]
         tags = instance.tags
-        instances.append( (instance.ip_address, instance.state, tags['Name'] or '') )
+        instances.append( (instance.ip_address or '', instance.state or 'Error', tags['Name'] or '') )
     return instances
 
 if __name__ == '__main__':
@@ -32,5 +32,5 @@ if __name__ == '__main__':
         print instances[0][0] # Only print the IP
     else:
         for instance in instances:
-            print '{} {} {}'.format(instance[0], instance[1], instance[2])
+            print '{0} {1} {2}'.format(instance[0], instance[1], instance[2])
 
